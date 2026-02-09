@@ -1,0 +1,28 @@
+/* cards & forms */
+.card-filter {
+    border-radius: 1rem;
+}
+.card-filter .form-label { font-weight: 600; }
+
+/* table polish */
+.table thead th {
+    position: sticky; top: 0; z-index: 1;
+    background: var(--bs-body-bg);
+}
+td, th { vertical-align: middle; }
+.table td.nowrap, .table th.nowrap { white-space: nowrap; }
+
+/* sort links */
+.sort-link { text-decoration: none; color: inherit; white-space: nowrap; }
+.sort-link.active { font-weight: 600; }
+.sort-link .sort-glyph { margin-left: .35rem; opacity: .75; }
+.sort-link.active .sort-glyph { opacity: 1; }
+
+/* empty state */
+.empty-state {
+    border: 2px dashed var(--bs-border-color);
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: center;
+    color: var(--bs-secondary-color);
+}

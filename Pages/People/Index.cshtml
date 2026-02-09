@@ -1,0 +1,194 @@
+@page
+@model Bramki.Pages.People.IndexModel
+@{
+    ViewData["Title"] = "Numery kart";
+}
+
+<div class="d-flex align-items-center justify-content-between mb-3">
+    <h1 class="h3 mb-0"><i class="bi bi-person-vcard me-2"></i>Numery kart</h1>
+</div>
+
+<!-- Filters -->
+<div class="card card-filter mb-3 shadow-sm">
+    <div class="card-body">
+        <form method="get">
+            <div class="row g-3">
+                <div class="col-md-2">
+                    <label class="form-label">ID</label>
+                    <input type="number" name="ID" value="@(Model.ID?.ToString() ?? "")" class="form-control" />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Numer pracownika</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-upc-scan"></i></span>
+                        <input type="text" name="ERPID" value="@Model.ERPID" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Imię</label>
+                    <input type="text" name="FirstName" value="@Model.FirstName" class="form-control" />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Nazwisko</label>
+                    <input type="text" name="Surname" value="@Model.Surname" class="form-control" />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Karta (DEC)</label>
+                    <input type="text" name="CardNumber" value="@Model.CardNumber" class="form-control" />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Karta (HEX)</label>
+                    <input type="text" name="CardNumber2" value="@Model.CardNumber2" class="form-control" />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Karta (Obiady)</label>
+                    <input type="text" name="LunchCard" value="@Model.LunchCard" class="form-control" />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Karta (ŚOI)</label>
+                    <input type="text" name="PpeCard" value="@Model.PpeCard" class="form-control" />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Wózki</label>
+                    <select asp-for="Forklifts" class="form-select">
+                        <option value="">— wszystkie —</option>
+                        <option value="true">Tak</option>
+                        <option value="false">Nie</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Suwnice</label>
+                    <select asp-for="Cranes" class="form-select">
+                        <option value="">— wszystkie —</option>
+                        <option value="true">Tak</option>
+                        <option value="false">Nie</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Żurawie</label>
+                    <select asp-for="Gantries" class="form-select">
+                        <option value="">— wszystkie —</option>
+                        <option value="true">Tak</option>
+                        <option value="false">Nie</option>
+                    </select>
+                </div>
+            </div>
+            <div class="d-flex gap-2 mt-3">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-search me-1"></i>Szukaj
+                </button>
+                <a asp-page="./Index" class="btn btn-outline-secondary">
+                    <i class="bi bi-x-circle me-1"></i>Wyczyść
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Results -->
+<div class="table-responsive shadow-sm rounded">
+    <table class="table table-hover align-middle mb-0">
+        <thead class="border-bottom">
+            <tr>
+                <th class="nowrap">
+                    <a class="sort-link @(Model.IsActiveSort("ID") ? "active" : "")" href="@Model.SortLink("ID")">
+                        ID <span class="sort-glyph">@Model.SortIcon("ID")</span>
+                        <span class="visually-hidden">@Model.SortAria("ID")</span>
+                    </a>
+                </th>
+                <th class="nowrap">
+                    <a class="sort-link @(Model.IsActiveSort("ERPID") ? "active" : "")" href="@Model.SortLink("ERPID")">
+                        Numer pracownika <span class="sort-glyph">@Model.SortIcon("ERPID")</span>
+                        <span class="visually-hidden">@Model.SortAria("ERPID")</span>
+                    </a>
+                </th>
+                <th class="nowrap">
+                    <a class="sort-link @(Model.IsActiveSort("FirstName") ? "active" : "")" href="@Model.SortLink("FirstName")">
+                        Imię <span class="sort-glyph">@Model.SortIcon("FirstName")</span>
+                        <span class="visually-hidden">@Model.SortAria("FirstName")</span>
+                    </a>
+                </th>
+                <th class="nowrap">
+                    <a class="sort-link @(Model.IsActiveSort("Surname") ? "active" : "")" href="@Model.SortLink("Surname")">
+                        Nazwisko <span class="sort-glyph">@Model.SortIcon("Surname")</span>
+                        <span class="visually-hidden">@Model.SortAria("Surname")</span>
+                    </a>
+                </th>
+                <th class="nowrap">
+                    <a class="sort-link @(Model.IsActiveSort("CardNumber") ? "active" : "")" href="@Model.SortLink("CardNumber")">
+                        Karta (DEC) <span class="sort-glyph">@Model.SortIcon("CardNumber")</span>
+                        <span class="visually-hidden">@Model.SortAria("CardNumber")</span>
+                    </a>
+                </th>
+                <th class="nowrap">
+                    <a class="sort-link @(Model.IsActiveSort("CardNumber2") ? "active" : "")" href="@Model.SortLink("CardNumber2")">
+                        Karta (HEX) <span class="sort-glyph">@Model.SortIcon("CardNumber2")</span>
+                        <span class="visually-hidden">@Model.SortAria("CardNumber2")</span>
+                    </a>
+                </th>
+                <th class="nowrap">
+                    <a class="sort-link @(Model.IsActiveSort("LunchCard") ? "active" : "")" href="@Model.SortLink("LunchCard")">
+                        Karta (Obiady) <span class="sort-glyph">@Model.SortIcon("LunchCard")</span>
+                        <span class="visually-hidden">@Model.SortAria("LunchCard")</span>
+                    </a>
+                </th>
+                <th class="nowrap">
+                    <a class="sort-link @(Model.IsActiveSort("PpeCard") ? "active" : "")" href="@Model.SortLink("PpeCard")">
+                        Karta (ŚOI) <span class="sort-glyph">@Model.SortIcon("PpeCard")</span>
+                        <span class="visually-hidden">@Model.SortAria("PpeCard")</span>
+                    </a>
+                </th>
+                <th class="nowrap">
+                    <a class="sort-link @(Model.IsActiveSort("Forklifts") ? "active" : "")" href="@Model.SortLink("Forklifts")">
+                        Wózki <span class="sort-glyph">@Model.SortIcon("Forklifts")</span>
+                        <span class="visually-hidden">@Model.SortAria("Forklifts")</span>
+                    </a>
+                </th>
+                <th class="nowrap">
+                    <a class="sort-link @(Model.IsActiveSort("Cranes") ? "active" : "")" href="@Model.SortLink("Cranes")">
+                        Suwnice <span class="sort-glyph">@Model.SortIcon("Cranes")</span>
+                        <span class="visually-hidden">@Model.SortAria("Cranes")</span>
+                    </a>
+                </th>
+                <th class="nowrap">
+                    <a class="sort-link @(Model.IsActiveSort("Gantries") ? "active" : "")" href="@Model.SortLink("Gantries")">
+                        Żurawie <span class="sort-glyph">@Model.SortIcon("Gantries")</span>
+                        <span class="visually-hidden">@Model.SortAria("Gantries")</span>
+                    </a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Rows.Any())
+            {
+                @foreach (var p in Model.Rows)
+                {
+                    <tr>
+                        <td class="nowrap text-secondary">@p.ID</td>
+                        <td class="nowrap">@p.ERPID</td>
+                        <td>@p.FirstName</td>
+                        <td>@p.Surname</td>
+                        <td class="nowrap"><code>@p.CardNumber</code></td>
+                        <td class="nowrap"><code>@p.CardNumber2</code></td>
+                        <td class="nowrap"><code>@p.LunchCardNumber</code></td>
+                        <td class="nowrap"><code>@p.PpeStorageCabinetsCardNumber</code></td>
+                        <td>@p.GatesForkliftsText</td>
+                        <td>@p.GatesCranesText</td>
+                        <td>@p.GatesGantriesText</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="11">
+                        <div class="empty-state">
+                            <div class="fs-4 mb-2"><i class="bi bi-search"></i></div>
+                            Brak wyników spełniających kryteria.
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
